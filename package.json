@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@reduxjs/toolkit": "^2.7.0",
     "@supabase/supabase-js": "^2.49.4",
+    "graphql": "^16.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0"
