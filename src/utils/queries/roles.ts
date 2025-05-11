@@ -1,5 +1,5 @@
-import { supabase } from '../config/supabase/supabaseClient';
-import { Role, SupabaseResponse } from '../types/supabase';
+import { supabase } from '@/config/supabase/supabaseClient';
+import { Role, SupabaseResponse } from '@/types/supabase';
 
 export const getPlayableRoles = async (): Promise<SupabaseResponse<Role[]>> => {
   const { data, error } = await supabase

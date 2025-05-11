@@ -1,0 +1,19 @@
+.buttonHeader {
+  font-weight: 500 !important;
+  color: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white)) !important;
+}
+.buttonHeader .tabler-icon {
+  color: inherit
+}
+.buttonHeader:hover {
+  color: var(--mantine-primary-color-6) !important;
+  background-color: light-dark(var(--mantine-primary-color-0), var(--mantine-color-dark-4)) !important;
+}
+
+.avatarDropdown * {
+  font-family: "Open Sans";
+}
+
+.navMenu {
+  border-radius: 8px;
+}

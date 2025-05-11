@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { RoleRow } from './RoleRow';
-import { getPlayableRoles } from '../queries/roles';
-import { Role } from '../types/supabase';
+import { getPlayableRoles } from '@queries/roles';
+import { Role } from '@/types/supabase';
 
 export function RolesList() {
   const [roles, setRoles] = useState<Role[]>([]);

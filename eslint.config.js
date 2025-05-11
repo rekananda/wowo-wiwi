@@ -19,11 +19,15 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      '@typescript-eslint/no-unused-vars': 'warn',
+      'react/no-unescaped-entities': 'warn',
+      'react/no-unknown-property': 'warn',
+      'react/react-in-jsx-scope': 'off',
+      'react-hooks/exhaustive-deps': 'off',
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'max-lines': ['warn', { 'max': 300 }],
     },
   },
 )

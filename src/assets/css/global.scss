@@ -1,0 +1,21 @@
+::-webkit-scrollbar {
+  right: 0;
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--mantine-color-gray-6);
+  border-radius: 4px;
+  width: 8px;
+  height: 8px;
+}
+
+.tabler-icon {
+  color: var(--icon-color-default);
+}
+button:not(:hover) .tabler-icon {
+  color: var(--button-color, --icon-color-default);
+}
+button.mantine-ActionIcon-root:not(:hover) .tabler-icon {
+  color: var(--ai-color, --icon-color-default);
+}

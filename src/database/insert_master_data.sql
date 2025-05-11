@@ -7,7 +7,7 @@ ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO m_peran (id, name, image, playable, must_played, must_played_when_even_player, is_back) VALUES
     ('3d7f838e-c299-4973-99f5-03a2a79b69b5','IBU RT', 'PERAN/PERAN-IBU-RT.png', true, false, true, false),
-    ('34ae73b0-16f1-4f76-b4b0-445181440ae0','JENDERAL', 'PERAN/PERAN-JENDERAL.png', true, false, false, false),
+    ('34ae73b0-16f1-4f76-b4b0-445181440ae0','JENDRAL', 'PERAN/PERAN-JENDRAL.png', true, false, false, false),
     ('8ea6ec38-74cc-4f85-bebc-b5628325681a','KONGLOMERAT', 'PERAN/PERAN-KONGLOMERAT.png', true, false, false, false),
     ('2eb06fe7-9293-41d3-91af-8c7b41ab2206','ORANG PINTER', 'PERAN/PERAN-ORANG-PINTER.png', true, true, false, false),
     ('02086e4d-6616-4a45-ba38-adfaf9137584','PEMUKA AGAMA', 'PERAN/PERAN-PEMUKA-AGAMA.png', true, false, false, false),

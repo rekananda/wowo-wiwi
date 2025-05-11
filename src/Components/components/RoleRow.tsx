@@ -1,4 +1,4 @@
-import { useImageUrl } from '../hooks/useImageUrl';
+import { useImageUrl } from "@/hooks/useImageUrl";
 
 interface RoleRowProps {
   role: {

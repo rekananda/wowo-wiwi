@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:wdth,wght@75..100,300..800&family=Varela+Round&display=swap');
+
+.font-heading {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  line-height: 35.1px !important;
+}
+
+.font-subheading {
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 24.8px !important;
+}
+
+.font-title {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 19.12px !important;
+}
+
+.font-subtitle {
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  line-height: 16.39px !important;
+}
+
+.font-paragraph {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 16px !important;
+}
+
+.font-label,
+.mantine-InputWrapper-label {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 18px !important;
+}
+
+.font-desc,
+.mantine-InputWrapper-description,
+.mantine-InputWrapper-error {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 18px !important;
+}
+
+.font-paragraph.bold,
+.font-caption.bold,
+.font-content.bold {
+  font-weight: 700 !important;
+}

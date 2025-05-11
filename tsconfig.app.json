@@ -20,7 +20,15 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@queries/*": ["./src/utils/queries/*"],
+      "@Atom/*": ["./src/Components/Atom/*"],
+      "@Molecule/*": ["./src/Components/Molecule/*"],
+      "@Organisme/*": ["./src/Components/Organisme/*"]
+    }
   },
   "include": ["src"]
 }

@@ -1,0 +1,8 @@
+body {
+  --mantine-color-text: light-dark(var(--mantine-color-dark-6), var(--mantine-color-white));
+  --mantine-color-solid: light-dark(rgb(255, 255, 255),rgb(45, 45, 45)) !important;
+  --mantine-color-body: light-dark(rgba(255, 255, 255, 0.2), rgb(45, 45, 45)) !important;
+  --mantine-background-card: light-dark(rgba(255, 255, 255, 0.3), rgba(45, 45, 45, 0.3)) !important;
+  --text-color: var(--mantine-color-text);
+  --icon-color-default: var(--mantine-color-text);
+}
