@@ -1,178 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Responsive Card Game Table</title>
+  <title>Radial Stripes Generator</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
+    body, html {
       margin: 0;
-      padding: 0;
-      background-color: #2c3e50;
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
+      height: 100%;
+      overflow: hidden;
     }
-
+    #canvas {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
     #controls {
-      margin: 20px;
-      color: white;
-    }
-
-    #table {
-      position: relative;
-      width: 90vw;
-      height: 90vh;
-      background-color: #27ae60;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,0,0,0.5);
-      overflow: visible;
-    }
-
-    .player {
       position: absolute;
-      width: 190px;
-      height: 190px;
-      background-color: #3498db;
-      color: white;
-      text-align: center;
-      line-height: 190px;
-      font-weight: bold;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    @media (max-width: 768px) {
-      #table {
-        width: 100%;
-        height: auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 20px;
-        background-color: transparent;
-      }
-
-      .player {
-        position: static;
-        transform: none;
-        margin: 10px;
-        width: 150px;
-        height: 150px;
-        line-height: 150px;
-      }
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 8px;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
+  <div id="controls">
+    <label for="stripeCount">Jumlah Stripe: </label>
+    <input type="number" id="stripeCount" value="20" min="2" max="100" />
+  </div>
+  <canvas id="canvas"></canvas>
 
-<div id="controls">
-  <label for="playerCount">Jumlah Pemain: </label>
-  <select id="playerCount"></select>
-</div>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const input = document.getElementById("stripeCount");
 
-<div id="table">
-  <svg id="radiusLine" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1"></svg>
-</div>
-
-<script>
-  const select = document.getElementById("playerCount");
-  const table = document.getElementById("table");
-
-  for (let i = 3; i <= 14; i++) {
-    const option = document.createElement("option");
-    option.value = i;
-    option.textContent = i;
-    select.appendChild(option);
-  }
-
-  function isMobile() {
-    return window.innerWidth <= 768;
-  }
-
-  function getCirclePositions(count) {
-    const padding = 110; // buffer so players don't go offscreen
-    const radius = Math.min(table.offsetWidth, table.offsetHeight) / 2 - padding;
-    const centerX = table.offsetWidth / 2;
-    const centerY = table.offsetHeight / 2;
-    const angleStep = (2 * Math.PI) / count;
-
-    return Array.from({ length: count }, (_, i) => {
-      const angle = angleStep * i - Math.PI / 2;
-      return {
-        top: centerY + radius * Math.sin(angle),
-        left: centerX + radius * Math.cos(angle),
-      };
-    });
-  }
-
-  function drawRadiusLine(positions) {
-    const svg = document.getElementById("radiusLine");
-    svg.innerHTML = ""; // Clear previous line
-
-    if (positions.length === 0) return;
-
-    const centerX = table.offsetWidth / 2;
-    const centerY = table.offsetHeight / 2;
-    const first = positions[0];
-
-    // SVG line
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", centerX);
-    line.setAttribute("y1", centerY);
-    line.setAttribute("x2", first.left);
-    line.setAttribute("y2", first.top);
-    line.setAttribute("stroke", "#fff");
-    line.setAttribute("stroke-width", "3");
-    line.setAttribute("stroke-dasharray", "8,6");
-
-    svg.appendChild(line);
-  }
-
-  function renderPlayers(count) {
-    table.innerHTML = "";
-    if (isMobile()) {
-      for (let i = 0; i < count; i++) {
-        const div = document.createElement("div");
-        div.className = "player";
-        div.textContent = i + 1;
-        table.appendChild(div);
-      }
-    } else {
-      const positions = getCirclePositions(count);
-      positions.forEach((pos, i) => {
-        const div = document.createElement("div");
-        div.className = "player";
-        div.style.top = `${pos.top}px`;
-        div.style.left = `${pos.left}px`;
-        div.textContent = i + 1;
-        table.appendChild(div);
-      });
-      drawRadiusLine(positions);
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-  }
 
-  // Initial
-  select.value = "6";
-  renderPlayers(6);
+    function drawStripes(stripeCount) {
+      resizeCanvas();
+      const { width, height } = canvas;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const radius = Math.sqrt(width * width + height * height); // agar penuh ke sudut
 
-  select.addEventListener("change", () => {
-    renderPlayers(parseInt(select.value));
-  });
+      const angle = (2 * Math.PI) / stripeCount;
+      const startAngle = Math.PI/2; // mulai dari bawah (180 derajat)
 
-  window.addEventListener("resize", () => {
-    renderPlayers(parseInt(select.value));
-  });
-</script>
+      for (let i = 0; i < stripeCount; i++) {
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(
+          centerX,
+          centerY,
+          radius,
+          startAngle + i * angle,
+          startAngle + (i + 1) * angle
+        );
+        ctx.closePath();
+        ctx.fillStyle = i % 2 === 0 ? "#f48fb1" : "#f8bbd0"; // dua warna pink
+        ctx.fill();
+      }
+    }
 
+    input.addEventListener("input", () => {
+      const stripeCount = parseInt(input.value, 10);
+      if (stripeCount >= 2) {
+        drawStripes(stripeCount);
+      }
+    });
+
+    window.addEventListener("resize", () => drawStripes(parseInt(input.value, 10)));
+
+    // Initial render
+    drawStripes(parseInt(input.value, 10));
+  </script>
 </body>
 </html>
