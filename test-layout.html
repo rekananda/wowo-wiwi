@@ -14,6 +14,10 @@
       width: 100vw;
       height: 100vh;
       display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
     }
     #controls {
       position: absolute;
@@ -22,14 +26,25 @@
       background: rgba(255, 255, 255, 0.8);
       padding: 10px;
       border-radius: 8px;
-      z-index: 1;
+      z-index: 3;
+    }
+    .dot {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: #fff;
+      border: 2px solid #e91e63;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 2;
     }
   </style>
 </head>
 <body>
   <div id="controls">
     <label for="stripeCount">Jumlah Stripe: </label>
-    <input type="number" id="stripeCount" value="20" min="2" max="100" />
+    <input type="number" id="stripeCount" value="14" min="3" max="14" />
   </div>
   <canvas id="canvas"></canvas>
 
@@ -43,15 +58,45 @@
       canvas.height = window.innerHeight;
     }
 
+    function getDynamicRadius(centerX, centerY, angle, dotRadius, buffer, width, height) {
+      const cos = Math.cos(angle);
+      const sin = Math.sin(angle);
+
+      let maxRadiusX, maxRadiusY;
+
+      if (cos > 0) {
+        maxRadiusX = (width - centerX - buffer - dotRadius) / cos;
+      } else if (cos < 0) {
+        maxRadiusX = (0 - centerX + buffer + dotRadius) / cos;
+      } else {
+        maxRadiusX = Infinity;
+      }
+
+      if (sin > 0) {
+        maxRadiusY = (height - centerY - buffer - dotRadius) / sin;
+      } else if (sin < 0) {
+        maxRadiusY = (0 - centerY + buffer + dotRadius) / sin;
+      } else {
+        maxRadiusY = Infinity;
+      }
+
+      return Math.min(Math.abs(maxRadiusX), Math.abs(maxRadiusY));
+    }
+
     function drawStripes(stripeCount) {
       resizeCanvas();
       const { width, height } = canvas;
       const centerX = width / 2;
       const centerY = height / 2;
-      const radius = Math.sqrt(width * width + height * height); // agar penuh ke sudut
+      const radius = Math.sqrt(width * width + height * height);
+
+      document.querySelectorAll('.dot').forEach(dot => dot.remove());
 
       const angle = (2 * Math.PI) / stripeCount;
-      const startAngle = Math.PI/2; // mulai dari bawah (180 derajat)
+      const startAngle = Math.PI / 2;
+      const dotDiameter = 200;
+      const dotRadius = dotDiameter / 2;
+      const buffer = 16;
 
       for (let i = 0; i < stripeCount; i++) {
         ctx.beginPath();
@@ -64,8 +109,30 @@
           startAngle + (i + 1) * angle
         );
         ctx.closePath();
-        ctx.fillStyle = i % 2 === 0 ? "#f48fb1" : "#f8bbd0"; // dua warna pink
+        ctx.fillStyle = i % 2 === 0 ? "#f48fb1" : "#f8bbd0";
         ctx.fill();
+
+        const circleAngle = startAngle + i * angle;
+        const r = getDynamicRadius(centerX, centerY, circleAngle, dotRadius, buffer, width, height);
+        const dotX = centerX + r * Math.cos(circleAngle);
+        const dotY = centerY + r * Math.sin(circleAngle);
+
+        let deg = (circleAngle * 180 / Math.PI) % 360;
+        if (deg < 0) deg += 360;
+
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        dot.style.left = `${dotX}px`;
+        dot.style.top = `${dotY}px`;
+        dot.style.display = "flex";
+        dot.style.alignItems = "center";
+        dot.style.justifyContent = "center";
+        dot.style.fontSize = "32px";
+        dot.style.color = "#e91e63";
+        dot.style.fontWeight = "bold";
+        dot.innerText = Math.round(deg);
+
+        document.body.appendChild(dot);
       }
     }
 
@@ -78,7 +145,6 @@
 
     window.addEventListener("resize", () => drawStripes(parseInt(input.value, 10)));
 
-    // Initial render
     drawStripes(parseInt(input.value, 10));
   </script>
 </body>
