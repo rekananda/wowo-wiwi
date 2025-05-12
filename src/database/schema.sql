@@ -9,7 +9,7 @@ CREATE TYPE action_effect_enum AS ENUM ('VOTE_MULTIPLIER', 'SKILL_CANCELLATION',
 CREATE TABLE m_users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL, -- Unique user identifier
     name VARCHAR(50) NOT NULL, -- User's display name
-    email VARCHAR(50) NOT NULL, -- User's email address
+    email VARCHAR(50) DEFAULT NULL, -- User's email address
     device VARCHAR(50) NOT NULL, -- Device identifier
     created_at TIMESTAMP DEFAULT now() NOT NULL, -- Record creation timestamp
     updated_at TIMESTAMP DEFAULT now() NOT NULL -- Last update timestamp

@@ -14,7 +14,7 @@ const MainLayout = ( {fullContent}: PropsMainLayout ) => {
     <AppShell
       className="relative"
       header={{ height: { base: 64, md: 64, lg: 80 }, collapsed: !pinned }}
-      p={fullContent? 0:{ base: 16, md: 32, lg: 50 }}
+      p={fullContent? 0:16}
     >
       <MainHeader />
       <AppShellMain mih="unset"> 

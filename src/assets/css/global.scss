@@ -19,3 +19,16 @@ button:not(:hover) .tabler-icon {
 button.mantine-ActionIcon-root:not(:hover) .tabler-icon {
   color: var(--ai-color, --icon-color-default);
 }
+
+body {
+  background-color: var(--mantine-primary-color-6) !important;
+  background-image: url('./LOGO/WOWO-WIWI-ICON-TRANSPARANT.png'), url('./LOGO/WOWO-WIWI-ICON-TRANSPARANT.png') !important;
+  background-position-x: calc(50% - 50vw), calc(50% + 50vw) !important;
+  background-position-y: center !important;
+  background-size: 30vw auto !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  @media (min-width: 768px) {
+    background-size: auto 50vh !important;
+  }
+}
